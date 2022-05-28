@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+import 'package:weather_app/cubit/error_products/error_products_cubit.dart';
+import 'package:weather_app/pages/weather_page.dart';
+import 'package:weather_app/services/error_products/error_products_repository.dart';
 import 'package:weather_app/utils/route/app_routing.dart';
 import 'cubit/favourite_cubit.dart';
 import 'cubit/weather_cubit.dart';
@@ -30,23 +33,27 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(
         builder: (context, orientation, deviceType) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: MultiBlocProvider(
-            providers: [
-          BlocProvider(
-            create: (BuildContext context) =>
-                WeatherCubit(injector.get<IRepository>()),
-          ),
-          BlocProvider(
-            create: (BuildContext context) => FavouriteCubit(),
-          )
-        ],
-            child: MaterialApp(
-              navigatorKey: AppRouting.mainNavigationKey,
-              onGenerateRoute: AppRouting.generateMainRoute,
-              debugShowCheckedModeBanner: false,
-              title: 'Teko',
-              home: const HomePage(),
-            ))));
+            debugShowCheckedModeBanner: false,
+            home: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (BuildContext context) =>
+                        WeatherCubit(injector.get<IRepository>()),
+                  ),
+                  BlocProvider(
+                    create: (BuildContext context) => FavouriteCubit(),
+                  ),
+                  BlocProvider(
+                    create: (BuildContext context) => ErrorProductCubit(
+                        injector.get<IErrorProductRepository>()),
+                  )
+                ],
+                child: MaterialApp(
+                  navigatorKey: AppRouting.mainNavigationKey,
+                  onGenerateRoute: AppRouting.generateMainRoute,
+                  debugShowCheckedModeBanner: false,
+                  title: 'Teko',
+                  home: const HomePage(),
+                ))));
   }
 }

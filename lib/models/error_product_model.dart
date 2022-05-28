@@ -1,27 +1,27 @@
 class ErrorProduct {
   final int id;
   final String errorDescription;
-  late String name;
-  late String sku;
+  String? name;
+  String? sku;
   final String image;
-  late int color;
+  int? color;
 
-  ErrorProduct(
-    {required this.id,
-      required this.errorDescription,
-      required this.image,
-      this.name = '',
-      this.sku = '',
-      this.color = 0,
-    });
+  ErrorProduct({
+    required this.id,
+    required this.errorDescription,
+    required this.image,
+    this.name,
+    this.sku,
+    this.color,
+  });
 
   static ErrorProduct fromJson(dynamic json) {
     return ErrorProduct(
         name: json['name'].toString(),
-        id: json['id'].toInt(),
-        sku: json['sku'].toString(),
+        id: json['id'],
+        sku: json['sku'],
         errorDescription: json['errorDescription'].toString(),
         image: json['image'].toString(),
-        color: json['color'].toInt());
+        color: json['color']);
   }
 }

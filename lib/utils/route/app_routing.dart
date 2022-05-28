@@ -1,16 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:weather_app/models/favourite.dart';
 import 'package:weather_app/pages/favourite_page.dart';
 import 'package:weather_app/pages/home_page.dart';
 import 'package:weather_app/pages/weather_page.dart';
 
-enum RouteDefine {
-  home,
-  favoriteWeather,
-  weather,
-  editProduct,
-  productPage
-}
+enum RouteDefine { home, favoriteWeather, weather, editProduct, productPage }
 
 class AppRouting {
   static final mainNavigationKey = GlobalKey<NavigatorState>();

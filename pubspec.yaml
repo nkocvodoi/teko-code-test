@@ -39,8 +39,10 @@ dependencies:
   flutter_bloc: ^7.3.0
   get_it: ^7.2.0
   mockito: ^5.0.16
+  fluttertoast: ^8.0.9
   sizer: any
   flutter_svg: any
+  lottie: ^1.3.0
 
 dev_dependencies:
   flutter_test:

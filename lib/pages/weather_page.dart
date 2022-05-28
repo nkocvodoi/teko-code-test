@@ -69,27 +69,27 @@ class _WeatherPageState extends State<WeatherPage> {
                     backgroundColor: Colors.transparent,
                     onRefresh: () => refreshWeather(
                         (BlocProvider.of<WeatherCubit>(context).state
-                        as WeatherLoaded)
+                                as WeatherLoaded)
                             .forecast),
                     child: ListView(children: <Widget>[
                       CityEntryWidget(callBackFunction: searchCity),
                       BlocBuilder<WeatherCubit, WeatherState>(
                           builder: (context, state) {
-                            if (state is WeatherInitial) {
-                              return buildMessageText(state.message);
-                            } else if (state is WeatherLoading) {
-                              return const IndicatorWidget();
-                            } else if (state is WeatherLoaded) {
-                              if (!isSelectedDate) {
-                                _forecast = state.forecast;
-                              }
-                              return buildColumnWithData();
-                            } else if (state is WeatherError) {
-                              return buildMessageText(state.message);
-                            } else {
-                              return const IndicatorWidget();
-                            }
-                          })
+                        if (state is WeatherInitial) {
+                          return buildMessageText(state.message);
+                        } else if (state is WeatherLoading) {
+                          return const IndicatorWidget();
+                        } else if (state is WeatherLoaded) {
+                          if (!isSelectedDate) {
+                            _forecast = state.forecast;
+                          }
+                          return buildColumnWithData();
+                        } else if (state is WeatherError) {
+                          return buildMessageText(state.message);
+                        } else {
+                          return const IndicatorWidget();
+                        }
+                      })
                     ])))));
   }
 
@@ -145,8 +145,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     refreshWeather(_forecast!);
                   },
                   child: DailySummaryWidget(weather: dailyForecast[index]));
-            })
-    );
+            }));
   }
 
   Future<void> refreshWeather(Forecast forecast) {
