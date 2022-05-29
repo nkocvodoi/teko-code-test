@@ -18,11 +18,16 @@ class ErrorProductCubit extends Cubit<ErrorProductState> {
   List<ColorModel> colors = [];
   int productPerPage = 10;
   int currentIndexEdit = 0;
+  int totalProducts = 0;
+  bool isLoading = false;
 
   Future<void> getColors() async {
     try {
       emit(ErrorProductLoading());
       colors = await _repository.getColors();
+      colors.forEach((element) {
+        print(element.name);
+      });
     } catch (_) {
       if (_.toString().contains('error retrieving colors')) {
         emit(ErrorProductError("Colors not found."));
@@ -38,7 +43,8 @@ class ErrorProductCubit extends Cubit<ErrorProductState> {
       emit(ErrorProductLoading());
       await getColors();
       errorProducts = await _repository.getErrorProducts();
-      displayErrorProducts = errorProducts.sublist(1, productPerPage);
+      displayErrorProducts = errorProducts.sublist(0, productPerPage);
+      totalProducts = displayErrorProducts.length;
       emit(ErrorProductLoaded(errorProducts: displayErrorProducts));
     } catch (_) {
       if (_.toString().contains('error retrieving error products')) {
@@ -50,20 +56,25 @@ class ErrorProductCubit extends Cubit<ErrorProductState> {
     }
   }
 
-  void loadmoreProducts() {
-    if (displayErrorProducts.length < errorProducts.length) {
+  Future<void> loadmoreProducts() async {
+    if (displayErrorProducts.length < errorProducts.length && !isLoading) {
+      isLoading = true;
       emit(LoadingMore(errorProducts: displayErrorProducts));
-      int sublistLower = displayErrorProducts.length + 1 < errorProducts.length
-          ? displayErrorProducts.length + 1
-          : errorProducts.length;
-      int sublistUpper =
-          displayErrorProducts.length + productPerPage < errorProducts.length
-              ? displayErrorProducts.length + productPerPage
-              : errorProducts.length;
-      List<ErrorProduct> productAddUp =
-          errorProducts.sublist(sublistLower, sublistUpper);
-      displayErrorProducts.addAll(productAddUp);
-      emit(LoadedMore(errorProducts: displayErrorProducts));
+      Future.delayed(const Duration(seconds: 2), () {
+        int sublistLower = displayErrorProducts.length < errorProducts.length
+            ? displayErrorProducts.length
+            : errorProducts.length;
+        int sublistUpper =
+            displayErrorProducts.length + productPerPage < errorProducts.length
+                ? displayErrorProducts.length + productPerPage
+                : errorProducts.length;
+        List<ErrorProduct> productAddUp =
+            errorProducts.sublist(sublistLower, sublistUpper);
+        displayErrorProducts.addAll(productAddUp);
+        totalProducts = displayErrorProducts.length;
+        emit(ErrorProductLoaded(errorProducts: displayErrorProducts));
+        isLoading = false;
+      });
     }
   }
 

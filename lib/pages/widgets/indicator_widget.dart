@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:sizer/sizer.dart';
 
 class IndicatorWidget extends StatelessWidget {
   const IndicatorWidget({Key? key}) : super(key: key);
@@ -15,7 +13,9 @@ class IndicatorWidget extends StatelessWidget {
             backgroundColor: Colors.grey,
             valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
           ),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           Text('Loading...',
               style: TextStyle(
                 fontSize: 18,

@@ -36,6 +36,7 @@ class AppScaffold extends StatelessWidget {
                 color: Color(0xFF16202A),
               ),
               child: NestedScrollView(
+                physics: const NeverScrollableScrollPhysics(),
                 headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
                   SliverAppBar(
                     expandedHeight: 10.h,
