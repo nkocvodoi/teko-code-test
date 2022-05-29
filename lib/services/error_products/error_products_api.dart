@@ -22,7 +22,6 @@ class ErrorProductAPI extends IErrorProductAPI {
     if (response.statusCode != 200) {
       throw Exception('error retrieving colors');
     }
-
     return List<ColorModel>.from(
         json.decode(response.body).map((model) => ColorModel.fromJson(model)));
   }

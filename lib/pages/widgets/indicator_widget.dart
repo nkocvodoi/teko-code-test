@@ -7,11 +7,16 @@ class IndicatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.only(top: 30),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Lottie.asset('assets/images/indicator.json', width: 50.w),
-          const Text('Please Wait...',
+    return Center(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+          CircularProgressIndicator(
+            backgroundColor: Colors.grey,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+          ),
+          SizedBox(height: 10,),
+          Text('Loading...',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.red,

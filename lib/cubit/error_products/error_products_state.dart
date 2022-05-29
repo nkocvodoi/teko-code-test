@@ -18,15 +18,15 @@ class ErrorProductError extends ErrorProductState {
   ErrorProductError(this.message);
 }
 
-class ColorLoading extends ErrorProductState {}
+class LoadingMore extends ErrorProductState {
+  final List<ErrorProduct> errorProducts;
 
-class ColorLoaded extends ErrorProductState {
-  final List<ColorModel> colors;
-
-  ColorLoaded({required this.colors}) : super();
+  LoadingMore({required this.errorProducts}) : super();
 }
 
-class ColorError extends ErrorProductState {
-  final String message;
-  ColorError(this.message);
+class LoadedMore extends ErrorProductState {
+  final List<ErrorProduct> errorProducts;
+
+  LoadedMore({required this.errorProducts}) : super();
 }
+
