@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.weather_app">
+    package="com.example.teko_test">
    <application
-        android:label="weather_app"
+        android:label="teko_test"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

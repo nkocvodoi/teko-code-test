@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:weather_app/models/color_model.dart';
-import 'package:weather_app/models/error_product_model.dart';
-import 'package:weather_app/services/error_products/error_products_repository.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:teko_test/models/color_model.dart';
+import 'package:teko_test/models/error_product_model.dart';
+import 'package:teko_test/services/error_products/error_products_repository.dart';
 
 part 'error_products_state.dart';
 
@@ -13,6 +14,8 @@ class ErrorProductCubit extends Cubit<ErrorProductState> {
     getColors().then((value) => getErrorProducts());
   }
 
+  var fbKey = GlobalKey<FormBuilderState>();
+
   List<ErrorProduct> errorProducts = [];
   List<ErrorProduct> displayErrorProducts = [];
   List<ColorModel> colors = [];
@@ -20,14 +23,32 @@ class ErrorProductCubit extends Cubit<ErrorProductState> {
   int currentIndexEdit = 0;
   int totalProducts = 0;
   bool isLoading = false;
+  List<int> fixSuccessProducts = [];
+
+  String colorToString(int? index) {
+    return index != null
+        ? colors.firstWhere((element) => element.id == index).name
+        : 'null';
+  }
+
+  void setEditIndex(int index) {
+    currentIndexEdit = index;
+  }
+
+  void resetAllData() {
+    errorProducts = [];
+    displayErrorProducts = [];
+    colors = [];
+    currentIndexEdit = 0;
+    totalProducts = 0;
+    isLoading = false;
+    fixSuccessProducts = [];
+  }
 
   Future<void> getColors() async {
     try {
       emit(ErrorProductLoading());
       colors = await _repository.getColors();
-      colors.forEach((element) {
-        print(element.name);
-      });
     } catch (_) {
       if (_.toString().contains('error retrieving colors')) {
         emit(ErrorProductError("Colors not found."));
@@ -41,6 +62,7 @@ class ErrorProductCubit extends Cubit<ErrorProductState> {
   Future<void> getErrorProducts() async {
     try {
       emit(ErrorProductLoading());
+      resetAllData();
       await getColors();
       errorProducts = await _repository.getErrorProducts();
       displayErrorProducts = errorProducts.sublist(0, productPerPage);
@@ -78,16 +100,31 @@ class ErrorProductCubit extends Cubit<ErrorProductState> {
     }
   }
 
-  String colorToString(int? index) {
-    return index != null
-        ? colors.firstWhere((element) => element.id == index).name
-        : 'null';
+  Future<void> editProducts() async {
+    var data = fbKey.currentState!.value;
+    emit(ErrorProductLoading());
+    var errProduct = errorProducts[currentIndexEdit];
+    errorProducts[currentIndexEdit] = ErrorProduct(
+        id: errProduct.id,
+        errorDescription: errProduct.errorDescription,
+        image: errProduct.image,
+        color: data['color'],
+        name: data["name"],
+        sku: data["sku"]);
+    displayErrorProducts = errorProducts.sublist(0, totalProducts);
+    if(!fixSuccessProducts.contains(currentIndexEdit)) fixSuccessProducts.add(currentIndexEdit);
+    emit(ErrorProductLoaded(errorProducts: displayErrorProducts));
   }
 
-  @override
-  void onChange(Change<ErrorProductState> change) {
-    // TODO: implement onChange
-    super.onChange(change);
-    print(change);
+  Future<void> confirmFixedList() async {
+    emit(ErrorProductLoading());
+    fixSuccessProducts.sort();
+    for (var i = fixSuccessProducts.length - 1; i >=0; i--) {
+      errorProducts.removeAt(fixSuccessProducts[i]);
+      displayErrorProducts.removeAt(fixSuccessProducts[i]);
+    }
+    totalProducts = displayErrorProducts.length;
+    fixSuccessProducts = [];
+    emit(ErrorProductLoaded(errorProducts: displayErrorProducts));
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:weather_app/pages/favourite_page.dart';
-import 'package:weather_app/pages/home_page.dart';
-import 'package:weather_app/pages/weather_page.dart';
+import 'package:teko_test/pages/home_page.dart';
+import 'package:teko_test/pages/product_edit.dart';
 
 enum RouteDefine { home, favoriteWeather, weather, editProduct, productPage }
 
@@ -11,8 +10,7 @@ class AppRouting {
   static CupertinoPageRoute generateMainRoute(RouteSettings settings) {
     final routes = <String, WidgetBuilder>{
       RouteDefine.home.name: (_) => const HomePage(),
-      RouteDefine.favoriteWeather.name: (_) => const FavouritePage(),
-      RouteDefine.weather.name: (_) => const WeatherPage(),
+      RouteDefine.editProduct.name: (_) => const ProductEditPage(),
     };
 
     final routeBuilder = routes[settings.name];

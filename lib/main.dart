@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:sizer/sizer.dart';
-import 'package:weather_app/cubit/error_products/error_products_cubit.dart';
-import 'package:weather_app/pages/weather_page.dart';
-import 'package:weather_app/services/error_products/error_products_repository.dart';
-import 'package:weather_app/utils/route/app_routing.dart';
-import 'cubit/favourite_cubit.dart';
-import 'cubit/weather_cubit.dart';
+import 'package:teko_test/cubit/error_products/error_products_cubit.dart';
+import 'package:teko_test/services/error_products/error_products_repository.dart';
+import 'package:teko_test/utils/route/app_routing.dart';
 import 'di/initialize_dependency.dart';
 import 'pages/home_page.dart';
-import 'services/repository.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,18 +34,14 @@ class AppView extends StatelessWidget {
             home: MultiBlocProvider(
                 providers: [
                   BlocProvider(
-                    create: (BuildContext context) =>
-                        WeatherCubit(injector.get<IRepository>()),
-                  ),
-                  BlocProvider(
-                    create: (BuildContext context) => FavouriteCubit(),
-                  ),
-                  BlocProvider(
                     create: (BuildContext context) => ErrorProductCubit(
                         injector.get<IErrorProductRepository>()),
                   )
                 ],
                 child: MaterialApp(
+                  localizationsDelegates: const [
+                    FormBuilderLocalizations.delegate,
+                  ],
                   navigatorKey: AppRouting.mainNavigationKey,
                   onGenerateRoute: AppRouting.generateMainRoute,
                   debugShowCheckedModeBanner: false,

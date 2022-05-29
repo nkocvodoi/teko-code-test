@@ -1,6 +1,6 @@
-import 'package:weather_app/models/color_model.dart';
-import 'package:weather_app/models/error_product_model.dart';
-import 'package:weather_app/services/error_products/error_products_api.dart';
+import 'package:teko_test/models/color_model.dart';
+import 'package:teko_test/models/error_product_model.dart';
+import 'package:teko_test/services/error_products/error_products_api.dart';
 
 abstract class IErrorProductRepository {
   Future<List<ColorModel>> getColors();

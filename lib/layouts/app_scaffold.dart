@@ -7,6 +7,7 @@ class AppScaffold extends StatelessWidget {
   final Widget body;
   final bool isBack;
   final bool isErrorPage;
+  final Widget? bottomWidget;
   final Future<void>? onRefresh;
   final Function()? onWillPop;
 
@@ -15,6 +16,7 @@ class AppScaffold extends StatelessWidget {
     required this.body,
     this.onRefresh,
     this.isBack = true,
+    this.bottomWidget,
     this.isErrorPage = false,
     Key? key,
     this.onWillPop,
@@ -104,6 +106,8 @@ class AppScaffold extends StatelessWidget {
                     ),
                     child: body),
               )),
+              floatingActionButton: bottomWidget,
+              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         ));
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:weather_app/models/color_model.dart';
-import 'package:weather_app/models/error_product_model.dart';
+import 'package:teko_test/models/color_model.dart';
+import 'package:teko_test/models/error_product_model.dart';
 
 import '../constants.dart';
 

@@ -1,13 +1,5 @@
-# Weather App
+# Teko Test App
 
-Block and Repository pattern is used for the this simple weather app.
-You can add the cities to your favorites and see 7 days forecast and see the details.
-I used Bloc(Cubit) pattern and Repository pattern
-Because biggest advantages of using Cubit is simplicity. 
-Also Repository pattern and dependency injection provides that
-You don't depend on actual concrete classes you are dependent on interfaces 
-With help of this, you can extend and test your classes easily
-I completed the project according to these approaches
 
 # 3rd Packages
     - http:  Http Client
@@ -16,8 +8,8 @@ I completed the project according to these approaches
     - intl : for date/number formatting and parsing
 
 # Pages
-    - Home Page: Weather of City information
-    - Favourite Page: Favourite Cities list 
+    - Home Page: List of Error Products
+    - Edit Product Page: Edit Detail of a Product 
 
 # Environments
     I used Visual Studio Code 1.60.1

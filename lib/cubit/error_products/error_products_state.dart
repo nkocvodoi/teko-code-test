@@ -30,3 +30,8 @@ class LoadedMore extends ErrorProductState {
   LoadedMore({required this.errorProducts}) : super();
 }
 
+class ProductEditing extends ErrorProductState {}
+
+class ProductEdited extends ErrorProductState {}
+
+
