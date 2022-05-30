@@ -27,7 +27,7 @@
 
     Second, VS Code termial: flutter run -d 'device_name'
 
-    If you are new to Flutter, please install at: [https://docs.flutter.dev/get-started/install](https://docs.flutter.dev/get-started/install) 
+    If you are new to Flutter, please install at: [Flutter Get Started](https://docs.flutter.dev/get-started/install) 
    
 # Images
 
