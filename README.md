@@ -35,25 +35,19 @@
     <table>
         <tr>
             <td style="text-align: center">
-                    <img src="assets/entry.png" width="300"/>
+                    <img src="assets/home_screen.jpg" width="300"/>
             </td>            
             <td style="text-align: center">
-                    <img src="assets/favouriteCities.png" width="300"/>
+                    <img src="assets/detail.jpg" width="300"/>
             </td>                     
         </tr>
         <tr>
             <td style="text-align: center">
-                    <img src="assets/weatherOfCity.png" width="300"/>
+                    <img src="assets/home_fix.jpg" width="300"/>
             </td> 
              <td style="text-align: center">
-                    <img src="assets/weatherOfCity2.png" width="300"/>
-            </td>      
-             <td style="text-align: center">
-                    <img src="assets/weatherOfCity3.png" width="300"/>
-            </td>      
-             <td style="text-align: center">
-                    <img src="assets/weatherOfCity4.png" width="300"/>
-            </td>                                     
+                    <img src="assets/dialog.jpg" width="300"/>
+            </td>                                       
         </tr>
     </table>
 </div>

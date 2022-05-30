@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:teko_test/pages/home_page.dart';
 import 'package:teko_test/pages/product_edit.dart';
 
-enum RouteDefine { home, favoriteWeather, weather, editProduct, productPage }
+enum RouteDefine { home, editProduct }
 
 class AppRouting {
   static final mainNavigationKey = GlobalKey<NavigatorState>();
