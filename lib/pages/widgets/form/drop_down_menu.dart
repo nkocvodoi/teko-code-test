@@ -36,7 +36,7 @@ class _FormColorPickerState extends State<FormColorPicker> {
               'Color: ',
               style: TextStyle(
                   color: Colors.black45,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.w300),
             ),
             flex: 1),
@@ -70,7 +70,7 @@ class _FormColorPickerState extends State<FormColorPicker> {
                             Text(
                               color.name,
                               style: TextStyle(
-                                  fontSize: 8.sp, fontWeight: FontWeight.bold),
+                                  fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),

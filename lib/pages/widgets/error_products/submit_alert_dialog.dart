@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 import 'package:teko_test/cubit/error_products/error_products_cubit.dart';
 import 'package:teko_test/models/error_product_model.dart';
@@ -7,21 +8,25 @@ import 'package:teko_test/pages/widgets/error_products/product_overview.dart';
 
 class SubmitAlertDialog extends StatefulWidget {
   final BuildContext context;
-  const SubmitAlertDialog({Key? key, required this.context}) : super(key: key);
+  final Function() onSave;
+  final List<int> productsIndex;
+  final List<ErrorProduct> products;
+  final List<String> colorsToString;
+  const SubmitAlertDialog(
+      {Key? key,
+      required this.context,
+      required this.onSave,
+      required this.productsIndex,
+      required this.products, required this.colorsToString})
+      : super(key: key);
 
-  @override
+@override
   State<SubmitAlertDialog> createState() => _SubmitAlertDialogState();
 }
 
 class _SubmitAlertDialogState extends State<SubmitAlertDialog> {
-  late ErrorProductCubit _cubit;
-
+  bool isSaveSuccess = false;
   @override
-  void initState() {
-    _cubit = BlocProvider.of<ErrorProductCubit>(context);
-    super.initState();
-  }
-   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text("Submit"),
@@ -29,33 +34,41 @@ class _SubmitAlertDialogState extends State<SubmitAlertDialog> {
           fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
       actionsOverflowButtonSpacing: 20,
       actions: [
-        ElevatedButton(
+        if(!isSaveSuccess) ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
             },
             child: const Text("Back")),
-        ElevatedButton(onPressed: () {
-          _cubit.confirmFixedList().then((value) => Navigator.pop(context));
-        }, child: const Text("Save")),
+        if(!isSaveSuccess) ElevatedButton(
+            onPressed: () {
+              widget.onSave();
+              setState(() {
+                isSaveSuccess = true;
+                  Future.delayed(const Duration(seconds: 2), () {
+                    Navigator.pop(context);
+                  });
+              });
+            },
+            child: const Text("Save")),
       ],
-      content: SizedBox(
+      content: isSaveSuccess ? Padding(padding: EdgeInsets.all(30), child: Lottie.asset('assets/images/success.json', width: 40),) : SizedBox(
         height: 60.h,
         width: 80.w,
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
-          itemCount: _cubit.fixSuccessProducts.length,
+          itemCount: widget.productsIndex.length,
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           itemBuilder: (context, index) {
-            int _productIndex = _cubit.fixSuccessProducts[index];
-            ErrorProduct _product =
-                _cubit.displayErrorProducts[_productIndex];
+            int _productIndex = widget.productsIndex[index];
+            ErrorProduct _product = widget.products[_productIndex];
+            String colorToString = widget.colorsToString[_productIndex];
             return ProductOverview(
               disable: true,
               index: _productIndex,
               product: _product,
               isFixed: true,
               onTap: () {},
-              colorToString: _cubit.colorToString(_product.color),
+              colorToString: colorToString,
             );
           },
         ),

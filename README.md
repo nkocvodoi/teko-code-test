@@ -12,15 +12,22 @@
     - Edit Product Page: Edit Detail of a Product 
 
 # Environments
-    I used Visual Studio Code 1.60.1
-    Flutter 2.5.0 • channel stable 
-    Dart 2.14.0
+    I used Visual Studio Code 1.67.2
+    Flutter 3.0.1 • channel stable 
+    Dart 2.17.1 (stable)
 
 # How to run
+    First, open device:
 
-    First, Android Studio -> AVD Manager -> run select device
+    * Android Studio -> AVD Manager -> run select device
+
+    Or:
+
+    * Bluestacks 4 -> Enable Android Debug Bridge (ADB)
 
     Second, VS Code termial: flutter run -d 'device_name'
+
+    If you are new to Flutter, please install at: https://docs.flutter.dev/get-started/install 
    
 # Images
 

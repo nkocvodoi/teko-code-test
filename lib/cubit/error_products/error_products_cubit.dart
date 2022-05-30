@@ -24,11 +24,20 @@ class ErrorProductCubit extends Cubit<ErrorProductState> {
   int totalProducts = 0;
   bool isLoading = false;
   List<int> fixSuccessProducts = [];
+  bool submitSuccess = false;
 
   String colorToString(int? index) {
     return index != null
         ? colors.firstWhere((element) => element.id == index).name
         : 'null';
+  }
+
+  List<String> convertColorsToListString() {
+    List<String> colorsToString = [];
+    displayErrorProducts.forEach((element) {
+      colorsToString.add(colorToString(element.color));
+    });
+    return colorsToString;
   }
 
   void setEditIndex(int index) {
@@ -112,18 +121,20 @@ class ErrorProductCubit extends Cubit<ErrorProductState> {
         name: data["name"],
         sku: data["sku"]);
     displayErrorProducts = errorProducts.sublist(0, totalProducts);
-    if(!fixSuccessProducts.contains(currentIndexEdit)) fixSuccessProducts.add(currentIndexEdit);
+    if (!fixSuccessProducts.contains(currentIndexEdit))
+      fixSuccessProducts.add(currentIndexEdit);
     emit(ErrorProductLoaded(errorProducts: displayErrorProducts));
   }
 
   Future<void> confirmFixedList() async {
     emit(ErrorProductLoading());
     fixSuccessProducts.sort();
-    for (var i = fixSuccessProducts.length - 1; i >=0; i--) {
+    for (var i = fixSuccessProducts.length - 1; i >= 0; i--) {
       errorProducts.removeAt(fixSuccessProducts[i]);
       displayErrorProducts.removeAt(fixSuccessProducts[i]);
     }
     totalProducts = displayErrorProducts.length;
+    submitSuccess = true;
     fixSuccessProducts = [];
     emit(ErrorProductLoaded(errorProducts: displayErrorProducts));
   }

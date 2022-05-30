@@ -30,7 +30,7 @@ class FormTextField extends StatelessWidget {
               label,
               style: const TextStyle(
                   color: Colors.black45,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.w300),
             ),
             flex: 1),
@@ -43,7 +43,7 @@ class FormTextField extends StatelessWidget {
                   color: Colors.black,
                   fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
                   fontStyle: isItalic ? FontStyle.italic : FontStyle.normal,
-                  fontSize: 20),
+                  fontSize: 16),
               // valueTransformer: (text) => num.tryParse(text),
               validator: FormBuilderValidators.compose([
                 if (isRequired) FormBuilderValidators.required(),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -62,13 +61,12 @@ class _HomePageState extends State<HomePage> {
               } else if (state is LoadingMore) {
                 return _buildList(state.errorProducts, isLoadmore: true);
               } else if (state is ErrorProductError) {
-                return ErrorMessage(message: state.message);
+                return _buildErrorMessage(state.message);
               } else {
                 return const DotIndicatorWidget();
               }
             },
           )));
-
 
   Widget _buildList(List<ErrorProduct> errProducts, {bool isLoadmore = false}) {
     bool hasFixed = _errCubit.fixSuccessProducts.isNotEmpty;
@@ -81,6 +79,7 @@ class _HomePageState extends State<HomePage> {
           itemCount: errProducts.length + 1,
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           itemBuilder: (context, index) {
+            bool isFixed = _errCubit.fixSuccessProducts.contains(index);
             if (index == errProducts.length && (isLoadmore || hasFixed)) {
               return const SizedBox(height: 100);
             } else if (index == errProducts.length) {
@@ -89,7 +88,7 @@ class _HomePageState extends State<HomePage> {
               return ProductOverview(
                 index: index,
                 product: errProducts[index],
-                isFixed: _errCubit.fixSuccessProducts.contains(index),
+                isFixed: isFixed,
                 onTap: () {
                   _errCubit.setEditIndex(index);
                   Navigator.pushNamed(context, RouteDefine.editProduct.name);
@@ -108,10 +107,23 @@ class _HomePageState extends State<HomePage> {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return SubmitAlertDialog(context: context);
+                      return SubmitAlertDialog(
+                        context: context,
+                        onSave: () => _errCubit.confirmFixedList(),
+                        products: _errCubit.displayErrorProducts,
+                        productsIndex: _errCubit.fixSuccessProducts,
+                        colorsToString: _errCubit.convertColorsToListString(),
+                      );
                     });
               }))
       ],
     );
   }
+
+  Widget _buildErrorMessage(String message) => ErrorMessage(
+        message: message,
+        reload: () {
+          _errCubit.getErrorProducts();
+        },
+      );
 }

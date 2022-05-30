@@ -57,13 +57,13 @@ class _ProductEditPageState extends State<ProductEditPage> {
                               top: 30,
                               left: 0,
                               child: Container(
-                                color: Colors.red.shade400,
+                                color: Colors.red,
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 20),
                                 child: Text(
                                   _errorProduct.errorDescription,
                                   style: TextStyle(
-                                      fontSize: 8.sp,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),

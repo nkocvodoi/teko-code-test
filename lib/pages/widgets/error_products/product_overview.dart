@@ -43,7 +43,7 @@ class ProductOverview extends StatelessWidget {
                 onTap: onTap,
                 child: Container(
                   constraints: BoxConstraints(minHeight: 26.w),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -66,7 +66,7 @@ class ProductOverview extends StatelessWidget {
                                   child: Text(
                                     product.name!,
                                     style: TextStyle(
-                                        fontSize: 8.sp,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -76,7 +76,7 @@ class ProductOverview extends StatelessWidget {
                                   child: Text(
                                     product.sku!,
                                     style: TextStyle(
-                                        fontSize: 7.sp,
+                                        fontSize: 14,
                                         fontStyle: FontStyle.italic),
                                   ),
                                 ),
@@ -100,7 +100,7 @@ class ProductOverview extends StatelessWidget {
                                         Text(
                                           colorToString,
                                           style: TextStyle(
-                                              fontSize: 6.sp,
+                                              fontSize: 14,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ],
@@ -110,6 +110,7 @@ class ProductOverview extends StatelessWidget {
                       ),
                       CircleAvatar(
                         backgroundColor: isFixed ? Colors.green : Colors.red,
+                        radius: 15,
                         child: Icon(
                           isFixed ? Icons.check : Icons.edit,
                           color: Colors.white,

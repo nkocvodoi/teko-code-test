@@ -2,7 +2,7 @@
     package="com.example.teko_test">
    <application
         android:label="teko_test"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
